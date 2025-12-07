@@ -11,6 +11,8 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
+    "src",
+    "es",
     "dist"
   ],
   "exports": {
@@ -18,6 +20,16 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./es": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.js"
+    },
+    "./es/*": {
+      "types": "./es/*.d.ts",
+      "import": "./es/*.js"
+    },
+    "./src": "./src/index.ts",
+    "./src/*": "./src/*",
     "./widget": {
       "import": "./dist/embed/widget.js",
       "require": "./dist/embed/widget.cjs"
@@ -28,6 +40,7 @@
     "dev": "cd example && npm run dev",
     "dev:widget": "vite",
     "build": "tsc && vite build",
+    "build:es": "vite build --config vite.config.es.ts",
     "build:widget": "vite build --config vite.widget.config.ts",
     "build:all": "npm run build && npm run build:widget",
     "preview": "vite preview",
