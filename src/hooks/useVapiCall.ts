@@ -20,6 +20,10 @@ export interface VapiCallHandlers {
   clearStoredCall: () => void;
 }
 
+export interface VapiCallInstance {
+  vapi: Vapi;
+}
+
 export interface UseVapiCallOptions {
   publicKey: string;
   callOptions: any;
@@ -52,7 +56,7 @@ export const useVapiCall = ({
   onMessage,
   onError,
   onTranscript,
-}: UseVapiCallOptions): VapiCallState & VapiCallHandlers => {
+}: UseVapiCallOptions): VapiCallState & VapiCallHandlers & VapiCallInstance => {
   const [vapi] = useState(() =>
     publicKey ? new Vapi(publicKey, apiUrl) : null
   );
@@ -338,5 +342,7 @@ export const useVapiCall = ({
     toggleMute,
     reconnect,
     clearStoredCall,
+    // Instance
+    vapi: vapi!,
   };
 };
