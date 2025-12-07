@@ -25,6 +25,10 @@ export interface VapiChatHandlers {
   clearMessages: () => void;
 }
 
+export interface VapiChatInstance {
+  client: VapiChatClient;
+}
+
 export interface UseVapiChatOptions {
   enabled?: boolean;
   publicKey?: string;
@@ -172,7 +176,8 @@ export const useVapiChat = ({
   onMessage,
   onError,
 }: UseVapiChatOptions): VapiChatState &
-  VapiChatHandlers & { isEnabled: boolean } => {
+  VapiChatHandlers &
+  VapiChatInstance & { isEnabled: boolean } => {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     if (enabled && firstChatMessage) {
       return [
@@ -406,5 +411,10 @@ export const useVapiChat = ({
     // Handlers
     sendMessage,
     clearMessages,
+
+    // Instance
+    get client() {
+      return clientRef.current!;
+    },
   };
 };
